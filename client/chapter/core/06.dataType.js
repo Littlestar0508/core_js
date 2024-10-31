@@ -93,6 +93,27 @@ const user = {
 
 // Array
 
+const arr = ['a',{name:'like'},(a,b)=>{a-b},4];
+
+const newArray = new Array(5); // 크기가 5인 배열이 생성됨
+
 // function
+
+function sum (a,b /* parameter */) {
+  return a+b;
+}
+
+const result = sum(2,3 /* arguments */);
+
+console.log(result);
+
+//쉬운 이해를 돕기 위한 코드
+// function 붕어빵틀(재료) {
+// return `따끈따끈한 ${재료} 붕어빵입니다`
+// }
+
+// const 팥붕 = 붕어빵틀('팥');
+// const 슈붕 = 붕어빵틀('슈크림');
+// const 피붕 = 붕어빵틀('피자');
 
 // this
