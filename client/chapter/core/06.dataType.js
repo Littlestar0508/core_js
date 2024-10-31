@@ -57,6 +57,40 @@ console.log(sym);
 
 // Object
 
+//객체에 메서드를 정의하는 방법
+
+// 1. normal function
+// 2. arrow function
+// 3. concise method
+// 객체의 메서드를 정의할 때 => concise method 권장
+// 메서드 안에서 함수를 정의해야 할 때 => arrow function 권장
+// 이유는 this를 찾기 위해서
+
+const user = {
+  name : "tiger",
+  age : 42,
+  sayHi: function() {
+    console.log('Hi');
+  },
+
+  sayHi2:()=> {
+    console.log('hihi');
+  },
+
+  sayHi3() {
+    // function sayBye() {
+    //   console.log('bye');
+    // }
+
+    const sayBye = () => {
+      console.log(this.age = 30);
+    }
+
+    sayBye();
+  }
+}
+
+
 // Array
 
 // function
