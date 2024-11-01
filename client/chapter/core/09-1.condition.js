@@ -47,6 +47,42 @@ let didWatchMovie;
 // 영화 볼거니?
 let goingToWatchMovie;
 
+function watchingMovie() {
+  let didWatchMovie = confirm('영화 봤니?');
+  let goingToWatchMovie;
+
+  if (didWatchMovie) {
+    alert('또 봐');
+  } else {
+    goingToWatchMovie = confirm('영화 볼거니?');
+    if (goingToWatchMovie) {
+      let withWho = prompt('누구랑 보러 가는데', '');
+
+      alert(withWho);
+
+      if (withWho === 'you') {
+        alert('결혼');
+      } else {
+        alert('사망');
+      }
+    } else {
+      alert('그냥 봐');
+    }
+  }
+}
+
+//삼항식으로 표현해보기
+didWatchMovie = 'no';
+goingToWatchMovie = 'yes';
+
+let answer = didWatchMovie.includes('yes')
+  ? '또 봐'
+  : goingToWatchMovie.includes('yes')
+    ? '지금 가자'
+    : '그냥 봐';
+
+alert(answer);
+
 // if 문(statement)
 
 // else 절(clause)
