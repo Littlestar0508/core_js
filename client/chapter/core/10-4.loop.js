@@ -52,4 +52,4 @@ Object.defineProperty(obj, 'age', {
   value: 30,
 });
 
-console.log(obj);
+console.log(obj); // {}
