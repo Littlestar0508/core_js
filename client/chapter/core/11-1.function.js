@@ -97,6 +97,40 @@ function setCss(node, prop, value) {
 
 setCss('.first', 'border', '4px dotted blue ');
 
+function getCss(node, prop) {
+  if (typeof node === 'string') {
+    node = document.querySelector(node);
+  }
+
+  if (node === undefined) {
+    throw new Error('node값은 필수 입력 사항입니다.');
+  }
+
+  if (!Object.hasOwn(getComputedStyle(node), prop)) {
+    throw new Error('잘못된 CSS 요소입니다');
+  }
+
+  return getComputedStyle(node)[prop];
+}
+
+const getStyle = getCss('.first', 'backgroundColor');
+
+console.log(getStyle);
+
+function CSS(node, prop, value = undefined) {
+  // if (value === undefined) {
+  //   return getCss(node, prop);
+  // } else {
+  //   return setCss(node, prop, value);
+  // }
+
+  return value === undefined ? getCss(node, prop) : setCss(node, prop, value);
+}
+
+const _css = (node, prop, value) => {
+  return value === undefined ? getCss(node, prop) : setCss(node, prop, value);
+};
+
 // node의 값을 'h1'으로 받았을 경우
 
 // node가 없거나 document.ELEMENT_NODE가 아닐 경우
