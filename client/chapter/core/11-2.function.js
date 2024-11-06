@@ -143,12 +143,9 @@ let IIFE;
 //비동기에 대한 접근
 // function getGeolocation(success,fail){
 
-//   let data;
-
 //   navigator.geolocation.getCurrentPosition((so)=>{
 //     success(so.coords.latitude)
 //   })
-//   return data
 // }
 
 // getGeolocation(
