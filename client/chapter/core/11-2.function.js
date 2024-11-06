@@ -136,23 +136,35 @@ movePage(
 
 // 함수 선언문 vs. 함수 (표현)식
 
+//비동기에 대한 접근
+function getGeolocation(success) {
+  navigator.geolocation.getCurrentPosition((so) => {
+    const data = so.coords.latitude;
+    success(data);
+  });
+}
+
+getGeolocation((data) => {
+  console.log(data);
+});
+
 // 즉시 실행 함수 (표현)식
 // Immediately Invoked Function Expression
 let IIFE;
 
-//비동기에 대한 접근
-// function getGeolocation(success,fail){
+const master = (function (g) {
+  console.log(g);
 
-//   navigator.geolocation.getCurrentPosition((so)=>{
-//     success(so.coords.latitude)
-//   })
-// }
+  var uuid = '@pslxfwhnnziwp';
 
-// getGeolocation(
-//   (data)=>{
-//     console.log(data);
-//   },
-//   ()=>{
+  return {
+    getKey() {
+      return uuid;
+    },
+    setKey(value) {
+      uuid = value;
+    },
+  };
+})(window);
 
-//   }
-// )
+console.log(master);
