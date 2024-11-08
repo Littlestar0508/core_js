@@ -107,10 +107,13 @@ const defaultOptions = {
 
 function ajax(options) {
   const config = {
+    // const {method,url} = { 도 가능하다 -> config변수를 사용하지 않아도 된다
     ...defaultOptions,
     ...options,
     headers: { ...defaultOptions.headers, ...options.headers },
   };
+
+  const { method, url } = config;
 
   console.log(config);
 }
