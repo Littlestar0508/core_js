@@ -204,6 +204,48 @@ const [a1, a2, a3, a4, a5 = 100000] = arr;
 
 console.log(a5);
 
+Object.entries(authUser).forEach(([k, v]) => console.log(k));
+
+Object.entries(authUser).map(([k, v]) => v);
 /* -------------------------------------------- */
 /* 객체 구조 분해 할당  destructuring assignments    */
 /* --------------------------------------------- */
+
+const salaries = {
+  a: 800,
+  b: 500,
+  c: 700,
+  d: 100,
+};
+
+const { a: 에이 = 100, c: 씨, d: 디, b: 비, e: 이 = 300 } = salaries;
+
+console.log(씨);
+console.log(에이);
+console.log(이);
+// a의 할당은 너무 복잡해짐
+
+function createUserObject({ name, age, address, phone, job }) {
+  // const { name, age, address, phone, job } = obj;
+
+  return {
+    name,
+    age,
+    address,
+    phone,
+    job,
+  };
+}
+
+const data = {
+  name: '홍길동',
+  age: 35,
+  address: '중랑구',
+  phone: '010-1234-5678',
+  job: '강사',
+};
+
+const user = createUserObject(data);
+
+const { log } = console;
+log('안녕');
