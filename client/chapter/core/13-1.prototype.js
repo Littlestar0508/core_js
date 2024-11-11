@@ -69,3 +69,6 @@ function Tiger(name) {
 }
 
 const Stiger = new Tiger('금순이');
+Tiger.bark = function (sound) {
+  return sound;
+};
