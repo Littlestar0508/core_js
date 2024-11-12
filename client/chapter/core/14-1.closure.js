@@ -27,11 +27,12 @@ function first() {
 const a = first();
 
 function multi(x) {
-  function inner(y) {
+  return function (y) {
     return x * y;
-  }
-  return inner;
+  };
 }
+
+const _multi = (x) => (y) => x * y; //식을 간단하게 표현하기
 
 const double = multi(2);
 const triple = multi(3);
