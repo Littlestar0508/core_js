@@ -1,6 +1,6 @@
 const getNode = (node, context = document) => {
   if (context.nodeType !== 9) {
-    context = document.querySelector(context);
+    context = getNode(context);
   }
 
   return context.querySelector(node);
@@ -8,7 +8,7 @@ const getNode = (node, context = document) => {
 
 const getNodes = (node, context = document) => {
   if (context.nodeType !== 9) {
-    context = document.querySelector(context);
+    context = getNodes(context);
   }
 
   return context.querySelectorAll(node);
