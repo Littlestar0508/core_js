@@ -6,6 +6,11 @@ const types = {
   isArray: true,
 };
 
+const dom = {
+  getNode: true,
+  getNodes: true,
+};
+
 export default [
   pluginJs.configs.recommended,
   {
@@ -14,6 +19,7 @@ export default [
         ...globals.browser,
         ...globals.node,
         ...types,
+        ...dom,
       },
     },
     rules: {
