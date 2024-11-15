@@ -20,6 +20,10 @@ const error = {
   typeError: true,
 };
 
+const insert = {
+  insertLast: true,
+};
+
 export default [
   pluginJs.configs.recommended,
   {
@@ -30,6 +34,7 @@ export default [
         ...types,
         ...dom,
         ...error,
+        ...insert,
       },
     },
     rules: {
