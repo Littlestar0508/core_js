@@ -56,3 +56,28 @@ nav {
     background-color: dodgerblue;
   }
 }
+
+.ground {
+  width: 400px;
+  height: 300px;
+  border: 5px solid black;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(70, 167, 70);
+  cursor: none;
+  overflow: hidden;
+}
+
+.ball {
+  /* transition: 0.5s; */
+  display: inline-block;
+  pointer-events: none;
+}
+
+.emotion {
+  font-size: 2rem;
+  position: absolute;
+  pointer-events: none;
+}
