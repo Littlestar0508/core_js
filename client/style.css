@@ -39,3 +39,20 @@ body {
     position: absolute;
   }
 }
+
+nav {
+  transition: 1s;
+}
+
+.is-active {
+  transition: 1s;
+  transform: translateY(100px) rotate(360deg);
+}
+
+.about {
+  transition: 1s;
+
+  &:hover {
+    background-color: dodgerblue;
+  }
+}

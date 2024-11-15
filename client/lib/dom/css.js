@@ -33,3 +33,81 @@ function setCss(node, prop, value) {
 
 const css = (node, prop, value) =>
   !value ? getCss(node, prop) : setCss(node, prop, value);
+
+/* -------------------------------------------------------------------------- */
+/*                                  css class                                 */
+/* -------------------------------------------------------------------------- */
+
+// JSDoc
+
+/**
+ * @function addClass DOM Element에 클래스를 추가하는 함수
+ * @param {HTMLElemnt | string} node
+ * @param  {string | array | object} className
+ * @return {void}
+ */
+
+function addClass(node, ...className) {
+  // if (isString(node)) {
+  //   node = getNode(node);
+  // }
+
+  // let arr = [];
+  // if (isString(className) && className.includes(',')) {
+  //   arr = className.split(',');
+  // }
+  // if (isClassNameect(className)) {
+  //   for (const keys in className) {
+  //     arr.push(className[keys]);
+  //   }
+  // }
+  // if (isArray(className)) {
+  //   arr = [...className];
+  // }
+
+  // if (arr.length > 0) {
+  //   for (let i = 0; i < arr.length; i++) {
+  //     node.classList.add(arr[i]);
+  //   }
+  //   return;
+  // }
+  // if (className.includes(',')) {
+  //   className = className.replace(/\s*/g, '').split(',');
+
+  //   className.forEach((c) => node.classList.add(c));
+  // }
+
+  className.forEach((c) => {
+    if (isObject(c)) {
+      c = Object.values(c);
+    }
+
+    if (c.includes(',')) {
+      c = c.replace(/\s*/g, '').split(',');
+    }
+    if (isArray(c)) {
+      c.forEach((c) => {
+        node.classList.add(c);
+      });
+    } else {
+      node.classList.add(c);
+    }
+  });
+}
+
+function revmoeClass(node, className) {
+  if (isString(node)) {
+    node = getNode(node);
+  }
+  if (!className) {
+    node.className = '';
+  }
+  node.classList.remove(className);
+}
+
+function toggleClass(node, className) {
+  if (isString(node)) {
+    node = getNode(node);
+  }
+  return node.classList.toggle(className);
+}
