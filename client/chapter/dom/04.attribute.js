@@ -39,16 +39,24 @@ console.log(getAttr(about, 'class'));
 console.log(about.setAttribute('id', '어바웃'));
 console.log(about.getAttribute('id'));
 
-function setAttr(node, name, value) {
-  if (typeof node === 'string') {
-    node = document.querySelector(node);
-  }
-  if (typeof name !== 'string' || typeof value !== 'string') {
-    throw TypeError('젊은친구.... 이건 말이 안되지 않을까....?');
-  }
+// setAttribute()를 실행할때 value에 숫자형과 같은 변수도 가능하다 -> String이외의 값도 가능하게 바꾸기(생각해보기)
 
-  return node.setAttribute(name, value);
-}
+// function setAttr(node, name, value) {
+//   if (typeof node === 'string') {
+//     node = document.querySelector(node);
+//   }
+//   if (
+//     typeof name !== 'string' ||
+//     (typeof value === 'string' &&
+//       typeof value === 'boolean' &&
+//       typeof value === 'number')
+//   ) {
+//     throw typeError('젊은친구.... 이건 말이 안되지 않을까....?');
+//   }
+
+//   return node.setAttribute(name, value);
+// }
+
 console.log(setAttr(about, 'id', '어바웃'));
 console.log(about.getAttribute('id'));
 
