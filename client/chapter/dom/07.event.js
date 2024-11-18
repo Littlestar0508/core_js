@@ -41,7 +41,7 @@ function handleBall({ offsetX: x, offsetY: y }) {
   ball.style.transform = `translate(${x - w / 2}px,${y - h / 2}px)`;
 }
 
-ground.addEventListener('click', handleBall);
+// ground.addEventListener('click', handleBall);
 
 function handleMove({ offsetX: x, offsetY: y }) {
   // const w = ball.offsetWidth;
@@ -55,7 +55,7 @@ function handleMove({ offsetX: x, offsetY: y }) {
   insertLast(ground, template);
 }
 
-ground.addEventListener('mousemove', handleMove);
+// ground.addEventListener('mousemove', handleMove);
 
 // debounce
 const input = getNode('input');
@@ -72,3 +72,46 @@ input.addEventListener('input', handleInput);
 
 // - addEventListener
 // - removeEventListener
+
+// deboune
+
+// function handle(e){
+//   console.log(e);
+
+// }
+
+ground.addEventListener('mousemove', debounce(handleMove, 100));
+
+function debounce(callback, limit = 500) {
+  let timeout;
+
+  return function (e) {
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+      callback.call(this, e);
+    }, limit);
+  };
+}
+
+// throttle
+
+function throttle(callback, limit = 500) {
+  let wait = false;
+
+  return function (...args) {
+    if (!wait) {
+      callback.apply(this, args);
+      wait = true;
+      setTimeout(() => {
+        wait = false;
+      }, limit);
+    }
+  };
+}
+
+function handle(e) {
+  console.log(e);
+}
+
+ground.addEventListener('mousemove', throttle(handle, 1000));
