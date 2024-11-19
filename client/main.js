@@ -6,7 +6,9 @@ import {
   getNodes,
   clearContents,
   insertLast,
-} from './lib/dom/index.js';
+  typeError,
+  isString,
+} from './lib/index.js';
 
 // input의 value값 가져오기
 
