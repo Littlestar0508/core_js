@@ -31,7 +31,7 @@ function setCss(node, prop, value) {
   node.style[prop] = value;
 }
 
-const css = (node, prop, value) =>
+export const css = (node, prop, value) =>
   !value ? getCss(node, prop) : setCss(node, prop, value);
 
 /* -------------------------------------------------------------------------- */
@@ -47,7 +47,7 @@ const css = (node, prop, value) =>
  * @return {void}
  */
 
-function addClass(node, ...className) {
+export function addClass(node, ...className) {
   // if (isString(node)) {
   //   node = getNode(node);
   // }
@@ -95,7 +95,7 @@ function addClass(node, ...className) {
   });
 }
 
-function revmoeClass(node, className) {
+export function revmoeClass(node, className) {
   if (isString(node)) {
     node = getNode(node);
   }
@@ -105,7 +105,7 @@ function revmoeClass(node, className) {
   node.classList.remove(className);
 }
 
-function toggleClass(node, className) {
+export function toggleClass(node, className) {
   if (isString(node)) {
     node = getNode(node);
   }

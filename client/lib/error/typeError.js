@@ -1,3 +1,3 @@
-function typeError(message) {
+export function typeError(message) {
   return new TypeError(message);
 }

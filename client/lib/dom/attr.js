@@ -36,5 +36,5 @@ function setAttr(node, prop, value) {
 //   setAttr(node, prop, value);
 // }
 
-const attr = (node, prop, value) =>
+export const attr = (node, prop, value) =>
   isUndefined(value) ? getAttr(node, prop) : setAttr(node, prop, value);

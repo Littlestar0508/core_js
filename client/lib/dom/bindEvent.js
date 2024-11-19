@@ -1,4 +1,4 @@
-function bindEvent(node, type, handler) {
+export function bindEvent(node, type, handler) {
   if (isString(node)) node = getNode(node);
 
   node.addEventListener(type, handler);
