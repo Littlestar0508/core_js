@@ -1,72 +1,106 @@
 import {
-  copy,
-  shake,
-  addClass,
-  showAlert,
-  getRandom,
+  diceAnimation,
+  getNode,
+  getNodes,
+  attr,
   insertLast,
-  getNode as $,
-  removeClass,
+  endScroll,
   clearContents,
-  isNumericString,
+  memo,
 } from './lib/index.js';
-import data from './data/data.js';
-// phase1
-// 1. 주접 떨기 버튼을 클릭하는 함수
-//    -주접 떨기 버튼 이벤트
-//    -이벤트 연결
 
-// 2. input 값 가져오기
+// 주사위 굴리기 버튼을 누르면 주사위가 애니메이션이 될 수 있도록 만들기
 
-// 3. data 함수에서  주접 1개 꺼내기
-//    -n번쨰 random 주접을 꺼내기
-//    -Math.random();
+// 1. 주사위 굴리기 버튼을 선택
+// 2. 클릭 이벤트 바인딩
 
-//  4. result에 렌더링하기
-//    - insertLast()
+// [애니메이션이 될 수 있도록 만들어 주세요]
+// 1. setInterval
+// 2. diceAnimation()
 
-// phase2
+// [같은 버튼 눌렀을 때]
+// 1. 상태 변수 true | false
+// 2. 조건 처리
 
-//  5. 예외 처리
-//    - 이름이 없을 경우 콘솔에 에러 출력
-//    - 숫자만 들어오면 콘솔에 에러 출력
+// [애니메이션 재생 정지]
+// 1. setInterval
+// 2. clearInterval(scope)
 
-const submit = $('#submit');
-const nameField = $('#nameField');
-const result = $('.result');
+// [기록 버튼을 누르면 table이 등장]
+// 1. recordBtn에 event binding('click')
+// 2. table은 .recordListWrapper의 hidden값 change
 
-function handleSubmit(e) {
-  e.preventDefault();
+// [table 안쪽에 tr태그 데이터를 넣고 렌더링]
+// 1. 태그 만들기
+// 2. insertLast 함수 사용하기(tbody 안쪽에 렌더링)
 
-  const name = nameField.value;
-  const list = data(name);
-  const pick = list[getRandom(list.length)];
+// 주사위 값 : dice의 값
 
-  if (!name || name.replaceAll(' ', '') === '') {
-    showAlert('.alert-error', '공백은 허용하지 않습니다.', 1200);
-    // addClass(nameField, 'shake');
-    shake(nameField);
-    return;
-  }
+// <!-- <tr>
+// <td>0</td>
+// <td>5</td>
+// <td>5</td>
+// </tr> -->
 
-  if (!isNumericString(name)) {
-    showAlert('.alert-error', '정확한 이름을 입력해주세요.', 1200);
-    shake(nameField);
-    return;
-  }
+//  [Item의 갯수가 많아짐에 따라 scroll을 제일 하단으로 렌더링]
+// [resetBtn을 눌렀을때 모든 항목 초기화]
 
-  clearContents(result);
-  insertLast(result, pick);
+const [rollingBtn, recordBtn, resetBtn] = getNodes('.buttonGroup > button');
+const recordListWrapper = getNode('.recordListWrapper');
+
+let count = 0;
+let total = 0;
+
+const handleRollingDice = (() => {
+  let isClicked = false;
+  let interval;
+
+  return () => {
+    if (!isClicked) {
+      interval = setInterval(diceAnimation, 100);
+      recordBtn.disabled = true;
+      resetBtn.disabled = true;
+    } else {
+      clearInterval(interval);
+      recordBtn.disabled = false;
+      resetBtn.disabled = false;
+    }
+
+    isClicked = !isClicked;
+  };
+})();
+
+function createItem(diceNumber) {
+  return /* HTML */ `
+    <td>${++count}</td>
+    <td>${diceNumber}</td>
+    <td>${(total += diceNumber)}</td>
+  `;
 }
 
-function handleCopy() {
-  const text = this.textContent;
+function renderRecordItem() {
+  const diceNumber = Number(memo('cube').getAttribute('dice'));
 
-  copy(text) // 클립보드에 복사하는 method
-    .then(() => {
-      showAlert('.alert-success', '클립보드 복사 완료');
-    });
+  // tbody.insertAdjacentHTML('beforeend', template);
+  insertLast('.recordListWrapper tbody', createItem(diceNumber));
 }
 
-submit.addEventListener('click', handleSubmit);
-result.addEventListener('click', handleCopy);
+const handleRecord = () => {
+  recordListWrapper.hidden = false;
+
+  renderRecordItem();
+  endScroll(recordListWrapper);
+};
+
+const handleReset = () => {
+  recordListWrapper.hidden = true;
+  clearContents(getNode('tbody'));
+  count = 0;
+  total = 0;
+};
+
+rollingBtn.addEventListener('click', handleRollingDice);
+
+recordBtn.addEventListener('click', handleRecord);
+
+resetBtn.addEventListener('click', handleReset);
