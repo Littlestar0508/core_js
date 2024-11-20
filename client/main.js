@@ -1,70 +1,60 @@
-// named export
-// default export
-
 import {
-  getNode as $,
-  getNodes,
   clearContents,
+  getNode as $,
   insertLast,
-  typeError,
-  isString,
+  getRandom,
+  addClass,
+  removeClass,
+  showAlert,
+  isNumericString,
 } from './lib/index.js';
+import data from './data/data.js';
+// phase1
+// 1. 주접 떨기 버튼을 클릭하는 함수
+//    -주접 떨기 버튼 이벤트
+//    -이벤트 연결
 
-// input의 value값 가져오기
+// 2. input 값 가져오기
 
-function phase1() {
-  const first = $('#firstNumber');
-  const second = $('#secondNumber');
-  const result = $('.result');
-  const clear = $('#clear');
+// 3. data 함수에서  주접 1개 꺼내기
+//    -n번쨰 random 주접을 꺼내기
+//    -Math.random();
 
-  function handleInput() {
-    let firstValue = +first.value;
-    let secondValue = +second.value;
+//  4. result에 렌더링하기
+//    - insertLast()
 
-    const total = firstValue + secondValue;
+// phase2
 
-    clearContents(result);
+//  5. 예외 처리
+//    - 이름이 없을 경우 콘솔에 에러 출력
+//    - 숫자만 들어오면 콘솔에 에러 출력
 
-    insertLast(result, total);
+const submit = $('#submit');
+const nameField = $('#nameField');
+const result = $('.result');
+const alert = $('.alert');
+
+function handleSubmit(e) {
+  e.preventDefault();
+
+  const name = nameField.value;
+  const list = data(name);
+  const pick = list[getRandom(list.length)];
+
+  if (!name || name.replaceAll(' ', '') === '') {
+    showAlert('.alert-error', '공백은 허용하지 않습니다.', 1200);
+
+    return;
   }
 
-  function handleClear(e) {
-    e.preventDefault();
+  if (!isNumericString(name)) {
+    showAlert('.alert-error', '정확한 이름을 입력해주세요.', 1200);
 
-    clearContents(first);
-    clearContents(second);
-    result.textContent = '-';
+    return;
   }
 
-  first.addEventListener('input', handleInput);
-  second.addEventListener('input', handleInput);
-
-  clear.addEventListener('click', handleClear);
+  clearContents(result);
+  insertLast(result, pick);
 }
 
-function phase2() {
-  const calculator = $('.calculator');
-  const result = $('.result');
-  const clear = $('#clear');
-  const numberInputs = [...getNodes('input:not(#clear)')];
-
-  function handleInput() {
-    const total = numberInputs.reduce((acc, cur) => acc + +cur.value, 0);
-
-    clearContents(result);
-    insertLast(result, total);
-  }
-
-  function handleClear(e) {
-    e.preventDefault();
-
-    numberInputs.forEach(clearContents);
-    result.textContent = '-';
-  }
-
-  calculator.addEventListener('input', handleInput);
-  clear.addEventListener('click', handleClear);
-}
-
-phase2();
+submit.addEventListener('click', handleSubmit);
