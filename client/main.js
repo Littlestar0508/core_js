@@ -2,7 +2,7 @@
 // default export
 
 import {
-  getNode,
+  getNode as $,
   getNodes,
   clearContents,
   insertLast,
@@ -12,30 +12,59 @@ import {
 
 // input의 value값 가져오기
 
-/* global clearContents */
+function phase1() {
+  const first = $('#firstNumber');
+  const second = $('#secondNumber');
+  const result = $('.result');
+  const clear = $('#clear');
 
-const first = getNode('#firstNumber');
-const second = getNode('#secondNumber');
-const result = getNode('.result');
-const clear = getNode('#clear');
+  function handleInput() {
+    let firstValue = +first.value;
+    let secondValue = +second.value;
 
-function handleInput() {
-  let firstValue = +first.value;
-  let secondValue = +second.value;
+    const total = firstValue + secondValue;
 
-  const total = firstValue + secondValue;
+    clearContents(result);
 
-  clearContents(result);
+    insertLast(result, total);
+  }
 
-  insertLast(result, total);
+  function handleClear(e) {
+    e.preventDefault();
+
+    clearContents(first);
+    clearContents(second);
+    result.textContent = '-';
+  }
+
+  first.addEventListener('input', handleInput);
+  second.addEventListener('input', handleInput);
+
+  clear.addEventListener('click', handleClear);
 }
 
-first.addEventListener('input', handleInput);
-second.addEventListener('input', handleInput);
+function phase2() {
+  const calculator = $('.calculator');
+  const result = $('.result');
+  const clear = $('#clear');
+  const numberInputs = [...getNodes('input:not(#clear)')];
 
-clear.addEventListener('click', (e) => {
-  e.preventDefault();
-  first.value = '';
-  second.value = '';
-  result.textContent = '-';
-});
+  function handleInput() {
+    const total = numberInputs.reduce((acc, cur) => acc + +cur.value, 0);
+
+    clearContents(result);
+    insertLast(result, total);
+  }
+
+  function handleClear(e) {
+    e.preventDefault();
+
+    numberInputs.forEach(clearContents);
+    result.textContent = '-';
+  }
+
+  calculator.addEventListener('input', handleInput);
+  clear.addEventListener('click', handleClear);
+}
+
+phase2();
