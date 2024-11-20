@@ -35,6 +35,7 @@ export default [
         ...dom,
         ...error,
         ...insert,
+        gsap: true,
       },
     },
     rules: {

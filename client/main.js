@@ -1,11 +1,13 @@
 import {
-  clearContents,
-  getNode as $,
-  insertLast,
-  getRandom,
+  copy,
+  shake,
   addClass,
-  removeClass,
   showAlert,
+  getRandom,
+  insertLast,
+  getNode as $,
+  removeClass,
+  clearContents,
   isNumericString,
 } from './lib/index.js';
 import data from './data/data.js';
@@ -32,7 +34,6 @@ import data from './data/data.js';
 const submit = $('#submit');
 const nameField = $('#nameField');
 const result = $('.result');
-const alert = $('.alert');
 
 function handleSubmit(e) {
   e.preventDefault();
@@ -43,13 +44,14 @@ function handleSubmit(e) {
 
   if (!name || name.replaceAll(' ', '') === '') {
     showAlert('.alert-error', '공백은 허용하지 않습니다.', 1200);
-
+    // addClass(nameField, 'shake');
+    shake(nameField);
     return;
   }
 
   if (!isNumericString(name)) {
     showAlert('.alert-error', '정확한 이름을 입력해주세요.', 1200);
-
+    shake(nameField);
     return;
   }
 
@@ -57,4 +59,14 @@ function handleSubmit(e) {
   insertLast(result, pick);
 }
 
+function handleCopy() {
+  const text = this.textContent;
+
+  copy(text) // 클립보드에 복사하는 method
+    .then(() => {
+      showAlert('.alert-success', '클립보드 복사 완료');
+    });
+}
+
 submit.addEventListener('click', handleSubmit);
+result.addEventListener('click', handleCopy);
