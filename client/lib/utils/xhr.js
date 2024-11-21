@@ -1,4 +1,4 @@
-const END_POINT = 'https://jsonplaceholder.typicode.com/users/10';
+const END_POINT = 'https://jsonplaceholder.typicode.com/users';
 
 // [readyState]
 // 0 : uninitialized
@@ -22,7 +22,7 @@ function xhr({
 
   xhr.open(method, url);
 
-  if (!method === 'DELETE') {
+  if (!(method === 'DELETE')) {
     Object.entries(headers).forEach(([k, v]) => {
       xhr.setRequestHeader(k, v);
     });
@@ -76,16 +76,99 @@ xhr.delete = (url, success, failure) => {
   xhr({ method: 'DELETE', url, success, failure });
 };
 
-xhr.get(
-  END_POINT,
-  (data) => {
-    console.log(data);
-  },
-  () => {}
-);
+// xhr.get(
+//   END_POINT,
+//   (data) => {
+//     console.log(data);
+//   },
+//   () => {}
+// );
 
-xhr.delete(
-  END_POINT,
-  (data) => console.log(data),
-  () => {}
-);
+// xhr.delete(
+//   END_POINT,
+//   (data) => console.log(data),
+//   () => {}
+// );
+
+/* -------------------------------------------------------------------------- */
+/*                                 promise로 변경                                */
+/* -------------------------------------------------------------------------- */
+
+//mixin
+
+const defaultOptions = {
+  method: 'GET',
+  url: '',
+  body: null,
+  errorMessage: '서버와의 통신이 원활하지 않습니다',
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+};
+
+function xhrPromise(options = {}) {
+  let { method, url, body, errorMessage, headers } = {
+    ...defaultOptions,
+    ...options,
+    headers: { ...defaultOptions.headers, ...options.headers },
+  };
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.open(method, url);
+
+  if (!(method === 'DELETE')) {
+    Object.entries(headers).forEach(([k, v]) => {
+      xhr.setRequestHeader(k, v);
+    });
+  }
+
+  xhr.send(body ? JSON.stringify(body) : null);
+
+  return new Promise((resolve, reject) => {
+    xhr.addEventListener('readystatechange', () => {
+      if (xhr.readyState === 4) {
+        //complete
+        if (xhr.status >= 200 && xhr.status < 400) {
+          resolve(JSON.parse(xhr.response));
+        } else {
+          reject({ message: errorMessage });
+        }
+      }
+    });
+  });
+}
+
+// xhrPromise({
+//   method: 'GET',
+//   url: END_POINT,
+// })
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+xhrPromise.get = (url) => xhrPromise({ url });
+xhrPromise.post = (url, body) => xhrPromise({ url, body, method: 'POST' });
+xhrPromise.put = (url, body) => xhrPromise({ url, body, method: 'PUT' });
+xhrPromise.delete = (url) => xhrPromise({ url, method: 'DELETE' });
+
+// xhrPromise.get(END_POINT).then((res) => console.log(res));
+xhrPromise
+  .get(END_POINT)
+  .then((res) => {
+    console.log(res);
+
+    res.forEach(({ website }) => {
+      const tag = `
+      <div>site : ${website}</div>
+    `;
+
+      document.body.insertAdjacentHTML('beforeend', tag);
+    });
+  })
+  .then(() => {})
+  .catch(() => {});
