@@ -107,7 +107,7 @@ const defaultOptions = {
   },
 };
 
-function xhrPromise(options = {}) {
+export function xhrPromise(options = {}) {
   let { method, url, body, errorMessage, headers } = {
     ...defaultOptions,
     ...options,
@@ -157,18 +157,92 @@ xhrPromise.put = (url, body) => xhrPromise({ url, body, method: 'PUT' });
 xhrPromise.delete = (url) => xhrPromise({ url, method: 'DELETE' });
 
 // xhrPromise.get(END_POINT).then((res) => console.log(res));
-xhrPromise
-  .get(END_POINT)
-  .then((res) => {
-    console.log(res);
+// xhrPromise
+//   .get(END_POINT)
+//   .then((res) => {
+//     console.log(res);
 
-    res.forEach(({ website }) => {
-      const tag = `
-      <div>site : ${website}</div>
-    `;
+//     res.forEach(({ website }) => {
+//       const tag = `
+//       <div>site : ${website}</div>
+//     `;
 
-      document.body.insertAdjacentHTML('beforeend', tag);
-    });
-  })
-  .then(() => {})
-  .catch(() => {});
+//       document.body.insertAdjacentHTML('beforeend', tag);
+//     });
+//   })
+//   .then(() => {})
+//   .catch(() => {});
+
+/* -------------------------------------------------------------------------- */
+/*                                    async                                   */
+/* -------------------------------------------------------------------------- */
+
+// async function d() {
+//   return 1;
+// }
+
+async function delayA() {
+  const p = new Promise((res) => {
+    setTimeout(() => {
+      res('성공');
+    }, 2000);
+  });
+
+  const result = await p;
+
+  return result;
+}
+
+console.log(delayA());
+
+// async의 예시
+// function _라면끓이기(){
+
+//   delayP({data:'물'})
+//   .then((res)=>{
+//     console.log( res );
+
+//     return delayP({data:'스프'})
+//   })
+//   .then((res)=>{
+//     console.log( res );
+
+//     return delayP({data:'면'})
+//   })
+//   .then((res)=>{
+//     console.log( res );
+
+//     return delayP({data:'계란'})
+//   })
+//   .then((res)=>{
+//     console.log( res );
+
+//     return delayP({data:'그릇'})
+//   })
+//   .then((res)=>{
+//     console.log( res );
+
+//   })
+
+// }
+
+// async function 라면끓이기(){
+
+//   const a = await delayP({data:'물'})
+//   console.log( a );
+
+//   const b = await delayP({data:'스프'})
+//   console.log( b );
+
+//   // const c = await delayP({data:'면'})
+//   console.log( '면' );
+
+//   // const d = await delayP({data:'계란'})
+//   console.log( '계란' );
+
+//   const e = await delayP({data:'그릇'})
+//   console.log( e );
+
+// }
+
+// 라면끓이기()
