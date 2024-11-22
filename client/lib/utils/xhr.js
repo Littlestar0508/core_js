@@ -181,19 +181,19 @@ xhrPromise.delete = (url) => xhrPromise({ url, method: 'DELETE' });
 //   return 1;
 // }
 
-async function delayA() {
-  const p = new Promise((res) => {
-    setTimeout(() => {
-      res('성공');
-    }, 2000);
-  });
+// async function delayA() {
+//   const p = new Promise((res) => {
+//     setTimeout(() => {
+//       res('성공');
+//     }, 2000);
+//   });
 
-  const result = await p;
+//   const result = await p;
 
-  return result;
-}
+//   return result;
+// }
 
-console.log(delayA());
+// console.log(delayA());
 
 // async의 예시
 // function _라면끓이기(){

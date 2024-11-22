@@ -41,37 +41,37 @@ import { xhrPromise } from './xhr.js';
 
 // // promise 객체를 반환하는 함수
 
-// const defaultOptions = {
-//   shouldRejected: false,
-//   data: '성공',
-//   errorMessage: '알 수 없는 오류',
-//   timeout: 1000,
-// };
+const defaultOptions = {
+  shouldRejected: false,
+  data: '성공',
+  errorMessage: '알 수 없는 오류',
+  timeout: 1000,
+};
 
-// function delayP(options) {
-//   let config = { ...defaultOptions };
+export function delayP(options) {
+  let config = { ...defaultOptions };
 
-//   if (isNumber(options)) {
-//     config.timeout = options;
-//   }
-//   if (isObject(options)) {
-//     config = { ...defaultOptions, ...options };
-//   }
+  if (isNumber(options)) {
+    config.timeout = options;
+  }
+  if (isObject(options)) {
+    config = { ...defaultOptions, ...options };
+  }
 
-//   const { shouldRejected, data, errorMessage, timeout } = config;
+  const { shouldRejected, data, errorMessage, timeout } = config;
 
-//   return new Promise((r, j) => {
-//     setTimeout(() => {
-//       if (!shouldRejected) {
-//         r(data);
-//       } else {
-//         j(errorMessage);
-//       }
-//     }, timeout);
-//   });
-// }
+  return new Promise((r, j) => {
+    setTimeout(() => {
+      if (!shouldRejected) {
+        r(data);
+      } else {
+        j(errorMessage);
+      }
+    }, timeout);
+  });
+}
 
-// delayP(2000);
+delayP(2000);
 
 // delayP(false)
 //   .then((res) => {
@@ -152,4 +152,4 @@ async function getData() {
   );
 }
 
-getData();
+// getData();
