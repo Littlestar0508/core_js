@@ -69,8 +69,8 @@ star.post = (url, body, options = {}) => {
   return star({
     method: 'POST',
     url,
-    body: JSON.stringify(body),
     ...options,
+    body: JSON.stringify(body),
   });
 };
 star.put = (url, body, options = {}) => {
