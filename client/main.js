@@ -1,29 +1,62 @@
-import { deleteStorage, getNode, getStorage, setStorage } from './lib/index.js';
+// class MyElement extends HTMLElement {
+//   constructor() {
+//     super();
+//   }
 
-// 1. input 이벤트 바인딩
-// 2. input의 값을 local storage에 저장(타이핑 하는 순간순간마다)
-// 3. local storage에 있는 값을 가져와 input의 value로 설정
-// 4. 새로 고침을 했을 때도 데이터 유지
-// 5. clear 버튼 클릭 시 데이터 제거(local storage,input)
+//   connectedCallback() {
+//     // 탄생
+//     console.log('탄생');
+//   }
 
-const textField = getNode('#textField');
-const button = getNode('button');
+//   disconnectedCallback() {
+//     // 죽음
+//     console.log('죽음');
+//   }
 
-function init() {
-  textField.value = getStorage('text').then((res) => (textField.value = res));
+//   static get observedAttributes() {
+//     return ['data-name'];
+//   }
+
+//   attributeChangedCallback(name, oldValue, newValue) {
+//     console.log(name, oldValue, newValue);
+//   }
+// }
+
+// customElements.define('my-element', MyElement);
+
+customElements.define(
+  'user-info',
+  class extends HTMLElement {
+    // constructor() {
+    //   super();
+    //   console.log(this.getAttribute('data-name'));
+    // }
+
+    connectedCallback() {
+      console.log(this.getAttribute('data-name'));
+    }
+  }
+);
+
+class Button extends HTMLButtonElement {
+  constructor() {
+    super();
+  }
 }
 
-function handleInput() {
-  setStorage('text', this.value);
+customElements.define('my-button', Button, { extends: 'button' });
+
+class MyElement extends HTMLElement {
+  connectedCallback() {
+    this.attachShadow({ mode: 'open' });
+
+    this.shadowRoot.innerHTML = /*HTML */ `
+    <div class='card' >
+      <slot name='title'></slot>
+      <slot name='content'></slot>
+    </div>
+    `;
+  }
 }
 
-function handleClear() {
-  textField.value = '';
-  deleteStorage('text');
-}
-
-textField.addEventListener('input', handleInput);
-
-button.addEventListener('click', handleClear);
-
-init();
+customElements.define('my-element', MyElement);
