@@ -1,62 +1,13 @@
-// class MyElement extends HTMLElement {
-//   constructor() {
-//     super();
-//   }
+import { Button } from './components/Button/Button.js ';
 
-//   connectedCallback() {
-//     // 탄생
-//     console.log('탄생');
-//   }
+const app = document.getElementById('app');
 
-//   disconnectedCallback() {
-//     // 죽음
-//     console.log('죽음');
-//   }
-
-//   static get observedAttributes() {
-//     return ['data-name'];
-//   }
-
-//   attributeChangedCallback(name, oldValue, newValue) {
-//     console.log(name, oldValue, newValue);
-//   }
-// }
-
-// customElements.define('my-element', MyElement);
-
-customElements.define(
-  'user-info',
-  class extends HTMLElement {
-    // constructor() {
-    //   super();
-    //   console.log(this.getAttribute('data-name'));
-    // }
-
-    connectedCallback() {
-      console.log(this.getAttribute('data-name'));
-    }
-  }
-);
-
-class Button extends HTMLButtonElement {
-  constructor() {
-    super();
-  }
+function defineElements() {
+  customElements.define('custom-button', Button);
 }
 
-customElements.define('my-button', Button, { extends: 'button' });
+defineElements();
 
-class MyElement extends HTMLElement {
-  connectedCallback() {
-    this.attachShadow({ mode: 'open' });
+const buttonElement = document.createElement('custom-button');
 
-    this.shadowRoot.innerHTML = /*HTML */ `
-    <div class='card' >
-      <slot name='title'></slot>
-      <slot name='content'></slot>
-    </div>
-    `;
-  }
-}
-
-customElements.define('my-element', MyElement);
+app.append(buttonElement);
