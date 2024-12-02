@@ -8,8 +8,7 @@
     "module": "ESNext",
     "moduleDetection": "force", // 파일을 분리시켜서 생각하는 역할
     "strict": true, // 타입을 지정하도록 유도
-    "strictNullChecks": true, // 변수에 null과 undefined를 할당하지 못하도록 유도
+    "strictNullChecks": true // 변수에 null과 undefined를 할당하지 못하도록 유도
     // "noImplicitAny": true default매개변수가 any타입을 갖는 것을 허락
-    "esModuleInterop": true
   }
 }
