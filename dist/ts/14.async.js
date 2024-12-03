@@ -22,18 +22,17 @@ async function fetchData(url) {
     const response = await fetch(url);
     const data = await response.json();
     // 데이터 리턴
-    console.log(data);
     return data;
 }
-const fetchD = fetchData(END_POINT);
-async function render(data) {
+const data = await fetchData(END_POINT);
+function render(target = document.body, data) {
     //데이터 받아오기
-    const newD = await data;
+    if (Array.isArray(data)) {
+        data.forEach((item) => {
+            target.insertAdjacentHTML("beforeend", `<li>${item.name}</li>`);
+        });
+    }
     //렌더링
-    const template = `
-  ${newD}
-  `;
-    document.body.insertAdjacentHTML("beforeend", template);
 }
-render(fetchD);
+render(document.body, data);
 export {};
