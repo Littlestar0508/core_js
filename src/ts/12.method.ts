@@ -12,10 +12,17 @@ function map<T, U>(arr: T[], callback: (n: T) => U): U[] {
 
 map(arr, (n) => n * 2);
 
-type ForEach<T> = {
-  arr: T[];
-  callback: (n: T) => void;
-};
+type Callback<T> = (n: T) => void;
+
+type ForEach = <T>(arr: T[], callback: Callback<T>) => void;
+
+interface _Callback<T> {
+  (n: T): void;
+}
+
+interface _ForEach<T> {
+  (arr: T[], callback: _Callback<T>): void;
+}
 
 const forEach: ForEach = <T>(arr, callback) => {
   for (let i = 0; i < arr.length; i++) {
