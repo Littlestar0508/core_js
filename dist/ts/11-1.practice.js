@@ -23,5 +23,30 @@ function setCss(node, prop, value) {
 const css = (node, prop, value) => {
     return !value ? getCss(node, prop) : setCss(node, prop, value);
 };
-console.log(css("body", "color"));
+css("body", "color");
+const getNode = (node, context = document) => {
+    if (typeof context === "string") {
+        const foundContext = document.querySelector(context);
+        if (!foundContext) {
+            throw new Error(`${context}에 해당하는 요소를 찾을 수 없습니다`);
+        }
+        context = foundContext;
+    }
+    if (typeof node === "string") {
+        const foundNode = context.querySelector(node);
+        if (!foundNode) {
+            throw new Error(`${node}에 해당하는 요소를 찾을 수 없습니다`);
+        }
+        return foundNode;
+    }
+    if (node instanceof Element) {
+        return node;
+    }
+    throw new Error("node는 문자열 또는 DOM요소이어야 합니다");
+};
+getNode("a");
+const a = document.querySelector(".box");
+if (a) {
+    getNode(".target", a);
+}
 export {};
