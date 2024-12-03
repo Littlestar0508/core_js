@@ -66,3 +66,9 @@ const getNode: GetNode = (node, context = document) => {
 };
 
 getNode("a");
+
+const a = document.querySelector(".box");
+
+if (a) {
+  getNode(".target", a);
+}
