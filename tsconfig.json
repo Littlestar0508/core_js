@@ -1,14 +1,25 @@
 {
-  "include": ["src"], // 변환할 대상
   "compilerOptions": {
-    "outDir": "dist", // 추출할 폴더의 기본 이름 값
-    "target": "ESNext", // 컴파일 하는 버전
-    "moduleResolution": "node",
-    "skipLibCheck": true,
+    "target": "ES2020",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
     "module": "ESNext",
-    "moduleDetection": "force", // 파일을 분리시켜서 생각하는 역할
-    "strict": true, // 타입을 지정하도록 유도
-    "strictNullChecks": true, // 변수에 null과 undefined를 할당하지 못하도록 유도
-    "noImplicitAny": false // default매개변수가 any타입을 갖는 것을 허락
-  }
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": ["src"]
 }
