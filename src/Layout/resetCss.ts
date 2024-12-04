@@ -156,4 +156,7 @@ export default css`
   select {
     vertical-align: middle;
   }
+  img {
+    width: 100%;
+  }
 `;
